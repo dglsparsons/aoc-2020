@@ -24,7 +24,7 @@ IS_VALID = {
 }
 
 
-REQUIRED_FIELDS = {'byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid'}
+REQUIRED_FIELDS = set(IS_VALID.keys())
 
 with open('input.txt', 'r+') as file:
     all_passports = file.read().split('\n\n')
