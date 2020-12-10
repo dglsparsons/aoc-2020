@@ -3,7 +3,7 @@ from functools import reduce
 
 
 def do_thing():
-    with open('input', 'r+') as f:
+    with open('input.txt', 'r') as f:
         so_far = {}
         for line in f:
             if not line:
