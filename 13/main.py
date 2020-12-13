@@ -23,44 +23,30 @@ def part_one(timestamp, buses):
     return best_bus_id * (nearest_time - timestamp)
 
 
-def check_buses(start_time, buses):
-    for i, bus in enumerate(buses):
-        if bus == 'x':
-            continue
-
-        bus_id = int(bus)
-        if (start_time + i) % bus_id != 0:
-            print(f"start time {start_time} doesn't work for buses {buses}")
-            return False
-
-    return True
-
-
-def get_frequency(start_time, current_frequency, index, bus):
-    offset = None
-    while True:
-        if (start_time + index) % bus == 0:
-            if not offset:
-                offset = start_time
-            else:
-                print(index, start_time, start_time - offset, offset)
-                return start_time, start_time - offset, offset
-
-        start_time += current_frequency
-
-
 def part_two(buses):
     frequency = int(buses[0])
     start_time = frequency
-    t = 0
+    offset = 0
     for i, bus in enumerate(buses):
         if bus == 'x':
             continue
-        # Find the frequency that works for the next bus added
-        # So how often there's a time that works for bus one and two.
-        # This becomes the start_time.
-        start_time, frequency, t = get_frequency(start_time, frequency, i, int(bus))
-    return t
+
+        # Find the offset that works with the next bus added
+        # and how often there's a time that works for these busses.
+        # This gives us a frequency to check for the next bus,
+        # and the offset is the first time that works.
+        # Do this for every bus, until we are good.
+        offset = None
+        while True:
+            if (start_time + i) % int(bus) == 0:
+                if not offset:
+                    offset = start_time
+                else:
+                    frequency = start_time - offset
+                    break
+
+            start_time += frequency
+    return offset
 
 
 print("part one:", part_one(earliest_timestamp, bus_ids))
