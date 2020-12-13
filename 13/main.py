@@ -32,10 +32,10 @@ def part_two(buses):
             continue
 
         # Find the offset that works with the next bus added
-        # and how often there's a time that works for these busses.
+        # and how often there's a time that works for these buses.
         # This gives us a frequency to check for the next bus,
         # and the offset is the first time that works.
-        # Do this for every bus, until we are good.
+        # Do this for every bus, then we are good.
         offset = None
         while True:
             if (start_time + i) % int(bus) == 0:
